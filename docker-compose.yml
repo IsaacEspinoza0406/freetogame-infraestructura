@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  backend-proxy:
+    build: ../proxy 
+    ports:
+      - "4000:4000"
+    networks:
+      - soa-network
+
+  frontend-client:
+    build: ../frontend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - backend-proxy
+    networks:
+      - soa-network
+
+networks:
+  soa-network:
+    driver: bridge
